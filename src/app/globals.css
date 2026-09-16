@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Design tokens.
+ *
+ * `data-theme`, `data-font` and `data-scale` are written onto <html> by the
+ * Appearance provider (src/context/appearance-context.js). Everything below is
+ * driven by those three attributes, so the Settings page can restyle the whole
+ * dashboard without any component knowing about it.
+ */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 30% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 30% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 30% 12%;
+    --primary: 201 96% 32%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 30% 18%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 44%;
+    --accent: 201 90% 94%;
+    --accent-foreground: 201 96% 24%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 62% 32%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 92% 42%;
+    --warning-foreground: 0 0% 100%;
+    --border: 214 24% 89%;
+    --input: 214 24% 89%;
+    --ring: 201 96% 32%;
+    --radius: 0.6rem;
+
+    /* Chart palette — kept as tokens so charts follow the active theme. */
+    --chart-1: 201 96% 38%;
+    --chart-2: 152 62% 38%;
+    --chart-3: 35 92% 48%;
+    --chart-4: 268 62% 56%;
+    --chart-5: 0 72% 54%;
+    --chart-grid: 214 24% 89%;
+
+    --app-font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  [data-theme='dark'] {
+    --background: 222 32% 9%;
+    --foreground: 210 30% 95%;
+    --card: 222 30% 12%;
+    --card-foreground: 210 30% 95%;
+    --popover: 222 30% 12%;
+    --popover-foreground: 210 30% 95%;
+    --primary: 199 90% 54%;
+    --primary-foreground: 222 40% 10%;
+    --secondary: 217 26% 18%;
+    --secondary-foreground: 210 30% 95%;
+    --muted: 217 26% 18%;
+    --muted-foreground: 215 18% 66%;
+    --accent: 217 32% 20%;
+    --accent-foreground: 199 90% 70%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 222 40% 10%;
+    --success: 152 58% 48%;
+    --success-foreground: 222 40% 10%;
+    --warning: 38 92% 58%;
+    --warning-foreground: 222 40% 10%;
+    --border: 217 26% 22%;
+    --input: 217 26% 22%;
+    --ring: 199 90% 54%;
+
+    --chart-1: 199 90% 58%;
+    --chart-2: 152 58% 52%;
+    --chart-3: 38 92% 60%;
+    --chart-4: 268 76% 72%;
+    --chart-5: 0 76% 64%;
+    --chart-grid: 217 26% 24%;
+  }
+
+  /*
+   * "Control room" theme: near-black background with high-chroma accents, meant
+   * for the large wall displays the brief calls out.
+   */
+  [data-theme='contrast'] {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 190 100% 50%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 78%;
+    --accent: 0 0% 18%;
+    --accent-foreground: 190 100% 60%;
+    --destructive: 356 100% 62%;
+    --destructive-foreground: 0 0% 4%;
+    --success: 140 100% 50%;
+    --success-foreground: 0 0% 4%;
+    --warning: 46 100% 54%;
+    --warning-foreground: 0 0% 4%;
+    --border: 0 0% 28%;
+    --input: 0 0% 28%;
+    --ring: 190 100% 50%;
+
+    --chart-1: 190 100% 55%;
+    --chart-2: 140 100% 52%;
+    --chart-3: 46 100% 58%;
+    --chart-4: 280 100% 72%;
+    --chart-5: 356 100% 66%;
+    --chart-grid: 0 0% 30%;
+  }
+
+  /* Font family choices offered on the Settings page. */
+  [data-font='sans'] { --app-font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  [data-font='serif'] { --app-font: ui-serif, Georgia, 'Times New Roman', serif; }
+  [data-font='mono'] { --app-font: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
+  [data-font='rounded'] { --app-font: 'SF Pro Rounded', 'Nunito', ui-rounded, system-ui, sans-serif; }
+
+  /*
+   * Font size is applied as a root font-size, so every rem-based Tailwind class
+   * scales together. `xl` is intended for projector / control-room use.
+   */
+  [data-scale='sm'] { font-size: 14px; }
+  [data-scale='md'] { font-size: 16px; }
+  [data-scale='lg'] { font-size: 18px; }
+  [data-scale='xl'] { font-size: 21px; }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--app-font);
+  }
+}
+
+@layer utilities {
+  /* Thin scrollbars keep dense tables/filter rows from feeling heavy. */
+  .scrollbar-thin::-webkit-scrollbar { height: 8px; width: 8px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { @apply rounded-full bg-border; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+}
